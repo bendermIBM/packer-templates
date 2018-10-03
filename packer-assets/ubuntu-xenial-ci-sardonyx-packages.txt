@@ -81,7 +81,6 @@ gpgv
 grep
 groff-base
 grub-common
-grub2-common
 gzip
 hashdeep
 haveged

@@ -80,8 +80,7 @@ gnupg2
 gpgv
 grep
 groff-base
-grub-common
-grub2-common
+grub-commandnotfound
 gzip
 hashdeep
 haveged
