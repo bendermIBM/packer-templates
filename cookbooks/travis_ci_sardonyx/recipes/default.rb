@@ -45,19 +45,23 @@ include_recipe 'travis_build_environment::maven'
 include_recipe 'travis_build_environment::lein'
 include_recipe 'travis_sbt_extras'
 include_recipe 'travis_build_environment::gradle'
-include_recipe 'travis_postgresql'
-include_recipe 'travis_build_environment::mysql'
-include_recipe 'travis_perlbrew::multi'
-include_recipe 'travis_build_environment::neo4j'
-include_recipe 'travis_build_environment::redis'
-include_recipe 'travis_build_environment::mongodb'
-include_recipe 'memcached'
-# TODO: Uncomment when cassandra works on Java 8 again
-# https://github.com/travis-ci/packer-templates/issues/589
-# include_recipe 'travis_build_environment::cassandra'
-include_recipe 'travis_build_environment::couchdb'
-include_recipe 'travis_build_environment::elasticsearch'
-include_recipe 'travis_build_environment::xserver'
+
+if node['kernel']['machine'] != 's390x'
+  include_recipe 'travis_postgresql'
+  include_recipe 'travis_build_environment::mysql'
+  include_recipe 'travis_perlbrew::multi'
+  include_recipe 'travis_build_environment::neo4j'
+  include_recipe 'travis_build_environment::redis'
+  include_recipe 'travis_build_environment::mongodb'
+  include_recipe 'memcached'
+  # TODO: Uncomment when cassandra works on Java 8 again
+  # https://github.com/travis-ci/packer-templates/issues/589
+  # include_recipe 'travis_build_environment::cassandra'
+  include_recipe 'travis_build_environment::couchdb'
+  include_recipe 'travis_build_environment::elasticsearch'
+  include_recipe 'travis_build_environment::xserver'
+end
+
 if node['kernel']['machine'] != 'ppc64le'
   include_recipe 'travis_build_environment::google_chrome'
   # TODO: Uncomment when the Xenial phantomjs archive exists:
