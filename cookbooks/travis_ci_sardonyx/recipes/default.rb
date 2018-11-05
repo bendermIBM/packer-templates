@@ -29,7 +29,7 @@ include_recipe 'travis_packer_templates'
 include_recipe 'travis_build_environment'
 
 if node['travis_packer_templates']['env']['PACKER_BUILDER_TYPE'] == 'docker'
-  if node['kernel']['machine'] == 'ppc64le'
+  if node['kernel']['machine'] == 'ppc64le' || node['kernel']['machine'] == 's390x'
     include_recipe 'travis_docker::package'
   else
     include_recipe 'travis_docker::binary'
@@ -62,7 +62,7 @@ if node['kernel']['machine'] != 's390x'
   include_recipe 'travis_build_environment::xserver'
 end
 
-if node['kernel']['machine'] != 'ppc64le'
+if node['kernel']['machine'] != 'ppc64le' || node['kernel']['machine'] != 's390x'
   include_recipe 'travis_build_environment::google_chrome'
   # TODO: Uncomment when the Xenial phantomjs archive exists:
   # https://s3.amazonaws.com/travis-phantomjs/binaries/ubuntu/16.04/x86_64/phantomjs-1.9.8.tar.bz2
