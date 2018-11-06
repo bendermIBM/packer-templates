@@ -22,7 +22,7 @@ override['travis_build_environment']['php_versions'] = php_aliases.values
 override['travis_build_environment']['php_default_version'] = php_aliases['7.2']
 override['travis_build_environment']['php_aliases'] = php_aliases
 
-if node['kernel']['machine'] == 'ppc64le'
+if node['kernel']['machine'] == 'ppc64le' || node['kernel']['machine'] == 's390x'
   override['travis_build_environment']['php_versions'] = []
   override['travis_build_environment']['php_default_version'] = []
   override['travis_build_environment']['php_aliases'] = {}
@@ -50,7 +50,7 @@ override['java']['oracle']['jce']['enabled'] = true
 override['travis_java']['default_version'] = 'oraclejdk8'
 override['travis_java']['alternate_versions'] = %w[openjdk8]
 
-if node['kernel']['machine'] == 'ppc64le'
+if node['kernel']['machine'] == 'ppc64le' || node['kernel']['machine'] == 's390x'
   override['travis_java']['default_version'] = 'openjdk8'
   override['travis_java']['alternate_versions'] = %w[openjdk7]
 end
