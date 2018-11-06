@@ -56,6 +56,10 @@ if node['kernel']['machine'] == 'ppc64le' || node['kernel']['machine'] == 's390x
   if node['kernel']['machine'] == 'ppc64le'
     override['travis_java']['alternate_versions'] = %w[openjdk7]
   end
+
+  if node['kernel']['machine'] == 's390x'
+    override['travis_java']['alternate_versions'] = []
+  end
 end
 
 override['leiningen']['home'] = '/home/travis'
