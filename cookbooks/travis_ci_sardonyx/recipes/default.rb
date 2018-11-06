@@ -37,14 +37,16 @@ if node['travis_packer_templates']['env']['PACKER_BUILDER_TYPE'] == 'docker'
 else
   include_recipe 'travis_docker'
   include_recipe 'travis_build_environment::ramfs'
+  include_recipe 'travis_build_environment::lein'
+  include_recipe 'travis_build_environment::gradle'
+  include_recipe 'travis_build_environment::maven'
+  include_recipe 'travis_docker::compose'
 end
-include_recipe 'travis_docker::compose'
+
 include_recipe 'openssl'
 include_recipe 'travis_java'
-include_recipe 'travis_build_environment::maven'
-include_recipe 'travis_build_environment::lein'
 include_recipe 'travis_sbt_extras'
-include_recipe 'travis_build_environment::gradle'
+
 
 if node['kernel']['machine'] != 's390x'
   include_recipe 'travis_postgresql'
