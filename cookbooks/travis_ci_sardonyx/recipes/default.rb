@@ -33,14 +33,15 @@ if node['travis_packer_templates']['env']['PACKER_BUILDER_TYPE'] == 'docker'
     include_recipe 'travis_docker::package'
   else
     include_recipe 'travis_docker::binary'
+    include_recipe 'travis_docker'
+    include_recipe 'travis_build_environment::ramfs'
+    include_recipe 'travis_build_environment::lein'
+    include_recipe 'travis_build_environment::gradle'
+    include_recipe 'travis_build_environment::maven'
+    include_recipe 'travis_docker::compose'
   end
 else
-  include_recipe 'travis_docker'
-  include_recipe 'travis_build_environment::ramfs'
-  include_recipe 'travis_build_environment::lein'
-  include_recipe 'travis_build_environment::gradle'
-  include_recipe 'travis_build_environment::maven'
-  include_recipe 'travis_docker::compose'
+
 end
 
 include_recipe 'openssl'
