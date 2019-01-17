@@ -81,7 +81,7 @@ end
 # HACK: sardonyx-specific shims!
 execute 'ln -svf /usr/bin/hashdeep /usr/bin/md5deep'
 
-include_recipe 'travis_system_info'
+# include_recipe 'travis_system_info'
 
 # HACK: force removal of ~/.pearrc until a decision is reached on if they are
 # good or bad
