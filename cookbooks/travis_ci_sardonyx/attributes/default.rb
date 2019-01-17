@@ -73,12 +73,7 @@ node_versions = %w[
 override['travis_build_environment']['nodejs_versions'] = node_versions
 override['travis_build_environment']['nodejs_default'] = node_versions.max
 
-pythons = %w[
-  2.7.14
-  3.4.5
-  3.5.2
-  3.6.3
-]
+pythons = %w[]
 
 # Reorder pythons so that default python2 and python3 come first
 # as this affects the ordering in $PATH.
@@ -101,11 +96,7 @@ pythons.each do |full_name|
     python_aliases(full_name)
 end
 
-rubies = %w[
-  2.2.7
-  2.3.4
-  2.4.1
-]
+rubies = %w[]
 
 override['travis_build_environment']['default_ruby'] = rubies.reject { |n| n =~ /jruby/ }.max
 override['travis_build_environment']['rubies'] = rubies
