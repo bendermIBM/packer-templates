@@ -73,27 +73,30 @@ node_versions = %w[
 override['travis_build_environment']['nodejs_versions'] = node_versions
 override['travis_build_environment']['nodejs_default'] = node_versions.max
 
-pythons = %w[]
+if node['kernel']['machine'] != 's390x'
 
-# Reorder pythons so that default python2 and python3 come first
-# as this affects the ordering in $PATH.
-%w[3 2].each do |pyver|
-  pythons.select { |p| p =~ /^#{pyver}/ }.max.tap do |py|
-    pythons.unshift(pythons.delete(py))
+  pythons = %w[]
+
+  # Reorder pythons so that default python2 and python3 come first
+  # as this affects the ordering in $PATH.
+  %w[3 2].each do |pyver|
+    pythons.select { |p| p =~ /^#{pyver}/ }.max.tap do |py|
+      pythons.unshift(pythons.delete(py))
+    end
   end
-end
 
-def python_aliases(full_name)
-  nodash = full_name.split('-').first
-  return [nodash] unless nodash.include?('.')
+  def python_aliases(full_name)
+    nodash = full_name.split('-').first
+    return [nodash] unless nodash.include?('.')
 
-  [nodash[0, 3]]
-end
+    [nodash[0, 3]]
+  end
 
-override['travis_build_environment']['pythons'] = pythons
-pythons.each do |full_name|
-  override['travis_build_environment']['python_aliases'][full_name] = \
-    python_aliases(full_name)
+  override['travis_build_environment']['pythons'] = pythons
+  pythons.each do |full_name|
+    override['travis_build_environment']['python_aliases'][full_name] = \
+      python_aliases(full_name)
+  end
 end
 
 rubies = %w[]
