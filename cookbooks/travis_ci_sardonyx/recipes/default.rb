@@ -76,8 +76,6 @@ if node['kernel']['machine'] != 's390x'
 end
 
 
-
-
 # HACK: sardonyx-specific shims!
 execute 'ln -svf /usr/bin/hashdeep /usr/bin/md5deep'
 
