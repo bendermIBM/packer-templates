@@ -73,11 +73,19 @@ node_versions = %w[
 override['travis_build_environment']['nodejs_versions'] = node_versions
 override['travis_build_environment']['nodejs_default'] = node_versions.max
 
+
 pythons = %w[
   2.7.15
   3.6.7
   3.7.1
 ]
+
+if node['kernel']['machine'] == 's390x'
+  pythons = %w[
+    2.7.14
+    3.6.3
+  ]
+end
 
 # Reorder pythons so that default python2 and python3 come first
 # as this affects the ordering in $PATH.
