@@ -59,6 +59,7 @@ if node['kernel']['machine'] == 'ppc64le' || node['kernel']['machine'] == 's390x
 
   if node['kernel']['machine'] == 's390x'
     override['travis_java']['alternate_versions'] = []
+    override['travis_java']['default_version'] = 'openjdk9'
   end
 end
 
