@@ -69,6 +69,7 @@ gawk
 gcc
 gcc-4.8-base
 gcc-4.9-base
+gcc-6-base
 gdisk
 geoip-database
 gettext
@@ -450,6 +451,7 @@ tcpdump
 telnet
 thin-provisioning-tools
 time
+tmate
 tmux
 tzdata
 ubuntu-keyring

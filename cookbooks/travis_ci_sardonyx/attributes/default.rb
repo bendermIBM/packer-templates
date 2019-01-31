@@ -36,43 +36,34 @@ override['travis_perlbrew']['modules'] = []
 override['travis_perlbrew']['prerequisite_packages'] = []
 
 gimme_versions = %w[
-  1.7.4
+  1.11.1
 ]
 
 override['travis_build_environment']['gimme']['versions'] = gimme_versions
 override['travis_build_environment']['gimme']['default_version'] = gimme_versions.max
 
-override['java']['jdk_version'] = '8'
-override['java']['install_flavor'] = 'oracle'
-override['java']['oracle']['accept_oracle_download_terms'] = true
-override['java']['oracle']['jce']['enabled'] = true
-
-override['travis_java']['default_version'] = 'oraclejdk8'
-override['travis_java']['alternate_versions'] = %w[openjdk8]
-
-if node['kernel']['machine'] == 'ppc64le' || node['kernel']['machine'] == 's390x'
+if node['kernel']['machine'] == 'ppc64le'
   override['travis_java']['default_version'] = 'openjdk8'
-
-  if node['kernel']['machine'] == 'ppc64le'
-    override['travis_java']['alternate_versions'] = %w[openjdk7]
-  end
-
-  if node['kernel']['machine'] == 's390x'
-    override['travis_java']['alternate_versions'] = []
-    override['travis_java']['default_version'] = 'openjdk9'
-  end
+  override['travis_java']['alternate_versions'] = %w[openjdk7]
+elsif node['kernel']['machine'] == 's390x'
+  override['travis_java']['default_version'] = 'openjdk9'
+  override['travis_java']['alternate_versions'] = %w[]
+else
+  override['travis_jdk']['versions'] = %w[
+    openjdk10
+    openjdk11
+  ]
+  override['travis_jdk']['default'] = 'openjdk11'
 end
 
 override['leiningen']['home'] = '/home/travis'
 override['leiningen']['user'] = 'travis'
 
-node_versions = %w[
-  6.12.0
-  8.9.1
+override['travis_build_environment']['nodejs_versions'] = %w[
+  11.0.0
+  8.12.0
 ]
-
-override['travis_build_environment']['nodejs_versions'] = node_versions
-override['travis_build_environment']['nodejs_default'] = node_versions.max
+override['travis_build_environment']['nodejs_default'] = '8.12.0'
 
 
 pythons = %w[
@@ -119,8 +110,6 @@ rubies = %w[
 override['travis_build_environment']['default_ruby'] = rubies.reject { |n| n =~ /jruby/ }.max
 override['travis_build_environment']['rubies'] = rubies
 
-# TODO: Remove once travis-erlang-builder supports Xenial:
-# https://github.com/travis-ci/travis-erlang-builder/pull/6
 override['travis_build_environment']['otp_releases'] = []
 override['travis_build_environment']['elixir_versions'] = []
 override['travis_build_environment']['default_elixir_version'] = ''
@@ -130,7 +119,7 @@ override['travis_build_environment']['update_hostname'] = true if node['kernel']
 override['travis_build_environment']['use_tmpfs_for_builds'] = false
 
 override['travis_build_environment']['mercurial_install_type'] = 'pip'
-override['travis_build_environment']['mercurial_version'] = '4.2.2~trusty1'
+override['travis_build_environment']['mercurial_version'] = '4.8'
 
 override['travis_packer_templates']['job_board']['stack'] = 'sardonyx'
 
@@ -138,10 +127,8 @@ override['travis_postgresql']['default_version'] = '9.6'
 override['travis_postgresql']['alternate_versions'] = %w[9.4 9.5 10]
 override['travis_postgresql']['enabled'] = false # is default instance started on machine boot?
 
-# TODO: phantomjs (either make tests use phantomjs 2 or re-enable phantomjs 1)
 override['travis_packer_templates']['job_board']['features'] = %w[
   basic
-  chromium
   couchdb
   disabled-ipv6
   docker
@@ -154,10 +141,10 @@ override['travis_packer_templates']['job_board']['features'] = %w[
   memcached
   mongodb
   mysql
-  neo4j
   nodejs_interpreter
   perl_interpreter
   perlbrew
+  phantomjs
   postgresql
   python_interpreter
   redis
@@ -165,7 +152,6 @@ override['travis_packer_templates']['job_board']['features'] = %w[
   sqlite
   xserver
 ]
-# TODO: php (travis-ci/travis-ci#8737)
 override['travis_packer_templates']['job_board']['languages'] = %w[
   __sardonyx__
   c
@@ -174,6 +160,7 @@ override['travis_packer_templates']['job_board']['languages'] = %w[
   cplusplus
   cpp
   default
+  generic
   go
   groovy
   java

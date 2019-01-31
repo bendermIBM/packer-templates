@@ -40,12 +40,24 @@ else
 end
 
 include_recipe 'travis_docker::compose'
-include_recipe 'travis_java'
+if node['kernel']['machine'] == 'ppc64le'
+  include_recipe 'travis_java'
+else
+  include_recipe 'travis_jdk'
+end
 include_recipe 'travis_perlbrew::multi'
 include_recipe 'travis_postgresql::pgdg'
 
 # HACK: stevonnie-specific shims!
 execute 'ln -svf /usr/bin/hashdeep /usr/bin/md5deep'
+
+log 'trigger writing node attributes' do
+  notifies :run, 'ruby_block[write node attributes]'
+end
+
+log 'trigger job-board registration' do
+  notifies :run, 'ruby_block[write job-board registration bits]'
+end
 
 include_recipe 'travis_system_info'
 
