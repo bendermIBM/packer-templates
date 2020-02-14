@@ -24,6 +24,11 @@ provisioners:
   source: files/sources.list
   destination: /etc/apt/sources.list
 
+# Use static DNS servers
+- type: shell
+  scripts:
+  - scripts/resolv-conf.sh
+
 - type: shell
   scripts:
   - scripts/base.sh
@@ -86,11 +91,6 @@ provisioners:
   - scripts/perl.sh
   - scripts/install-docker-compose.sh
   execute_command: "exec su - travis '{{ .Path }}'"
-
-  # Use static DNS servers
-- type: shell
-  scripts:
-  - scripts/resolv-conf.sh
 
   # Cleanup systemd units
 - type: shell
