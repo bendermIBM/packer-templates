@@ -25,7 +25,8 @@ class ImageTagger
       'googlecompute' => 'gce',
       'lxd' => 'lxd-amd64',
       'docker' => 'docker',
-      'vmware' => 'jupiterbrain'
+      'vmware' => 'jupiterbrain',
+      'lxd' => "lxd-#{ENV['ARCH']}"
     }.fetch(env['PACKER_BUILDER_TYPE'], 'local')
   end
 
@@ -59,7 +60,8 @@ class ImageTagger
       env['PACKER_TEMPLATES_BRANCH'] == 'master' &&
       env['PACKER_TEMPLATES_SHA'] !~ /dirty/
 
-    'dev'
+    #'dev'
+    'stable'
   end
 
   def dist
