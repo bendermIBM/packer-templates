@@ -127,21 +127,21 @@ provisioners:
    - chmod 644 /etc/docker/daemon.json
 
   # Creare image metadata tarball
-- type: shell
-  scripts:
-  - scripts/create-job-board-data-lxd.sh
-  - scripts/create-image-metadata-tarball-lxd.sh
-  environment_vars:
-  - IMAGE_METADATA_TARBALL=/tmp/image-metadata-{{ user `image_name` }}.tar.bz2
-  - JOB_BOARD_REGISTER_FILE=/tmp/.job_board_register.yml
-  - JOB_BOARD_IMAGE_DIST={{ user `dist_name` }}
-  - IMAGE_NAME={{ user `image_name` }}
-  - LANGUAGES={{ user `languages` }}
-  execute_command: "{{ .Vars }} exec sudo -E -S bash '{{ .Path }}'"
-- type: file
-  source: /tmp/image-metadata-{{ user `image_name` }}.tar.bz2
-  destination: tmp/image-metadata-{{ user `image_name` }}.tar.bz2
-  direction: download
+# - type: shell
+#   scripts:
+#   - scripts/create-job-board-data-lxd.sh
+#   - scripts/create-image-metadata-tarball-lxd.sh
+#   environment_vars:
+#   - IMAGE_METADATA_TARBALL=/tmp/image-metadata-{{ user `image_name` }}.tar.bz2
+#   - JOB_BOARD_REGISTER_FILE=/tmp/.job_board_register.yml
+#   - JOB_BOARD_IMAGE_DIST={{ user `dist_name` }}
+#   - IMAGE_NAME={{ user `image_name` }}
+#   - LANGUAGES={{ user `languages` }}
+#   execute_command: "{{ .Vars }} exec sudo -E -S bash '{{ .Path }}'"
+# - type: file
+#   source: /tmp/image-metadata-{{ user `image_name` }}.tar.bz2
+#   destination: tmp/image-metadata-{{ user `image_name` }}.tar.bz2
+#   direction: download
 
 # cleanup
 - type: shell
@@ -159,9 +159,9 @@ post-processors:
   - type: shell-local
     scripts:
     - scripts/lxc-export.sh
-    - scripts/lxc-aws-s3-upload.sh
-    - scripts/lxc-push.sh # push and init images in lxc hosts with salt (only for staging)
-    - scripts/job-board-register.rb # register lxc image in job board staging
+    # - scripts/lxc-aws-s3-upload.sh
+    # - scripts/lxc-push.sh # push and init images in lxc hosts with salt (only for staging)
+    # - scripts/job-board-register.rb # register lxc image in job board staging
     environment_vars:
     - IMAGE_METADATA_FILE=image-metadata-{{ user `image_name` }}.tar.bz2
     - IMAGE_NAME={{ user `image_name` }}
