@@ -11,9 +11,9 @@ main() {
   if [[ "${PACKER_BUILDER_TYPE}" != docker ]]; then
     __disable_ipv6
   fi
-  if ! [[ "$(uname -m)" =~ ppc64 || "$(uname -m)" =~ s390x ]]; then
-    __enable_i386
-  fi
+  # if ! [[ "$(uname -m)" =~ ppc64 || "$(uname -m)" =~ s390x ]]; then
+  #   __enable_i386
+  # fi
   __install_packages
   __setup_sshd
   __setup_travis_user
