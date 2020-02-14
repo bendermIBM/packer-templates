@@ -18,22 +18,25 @@ __resolvconf_install() {
 }
 
 __resolvconf_get_content(){
-  echo "nameserver 127.0.0.53
+  echo "
 options rotate
 options timeout:1
 
-nameserver 8.8.8.8
-nameserver 8.8.4.4
-nameserver 1.1.1.1
-nameserver 1.0.0.1
-nameserver 9.12.16.2
+nameserver 9.20.136.11
+nameserver 9.20.136.25
+nameserver 9.0.130.50
 nameserver 9.0.128.50
+nameserver 9.12.16.2
 "
 }
 
 __resolvconf_get_content_optional(){
   echo "options timeout:10
-nameserver 192.168.0.1
+nameserver 9.20.136.11
+nameserver 9.20.136.25
+nameserver 9.0.130.50
+nameserver 9.0.128.50
+nameserver 9.12.16.2
 "
 }
 
