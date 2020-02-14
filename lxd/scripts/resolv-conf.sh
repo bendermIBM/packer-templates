@@ -15,6 +15,7 @@ __resolvconf_install() {
   touch "/etc/resolv.conf"
   chmod 644 "/etc/resolv.conf"
   call_build_function func_name="__resolvconf_get_content" >> "/etc/resolv.conf"
+  cat /etc/resolve.conf
 }
 
 __resolvconf_get_content(){
@@ -32,6 +33,7 @@ nameserver 9.12.16.2
 
 __resolvconf_get_content_optional(){
   echo "options timeout:10
+
 nameserver 9.20.136.11
 nameserver 9.20.136.25
 nameserver 9.0.130.50
