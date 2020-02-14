@@ -41,7 +41,11 @@ if node['travis_packer_templates']['env']['PACKER_BUILDER_TYPE'] == 'docker'
     include_recipe 'travis_docker::compose'
   end
 else
-
+  if node['travis_packer_templates']['env']['PACKER_BUILDER_TYPE'] == 'lxd'
+    node.override['travis_docker']['update_grub'] = false
+  end
+  include_recipe 'travis_docker'
+  include_recipe 'travis_build_environment::ramfs'
 end
 
 include_recipe 'openssl'

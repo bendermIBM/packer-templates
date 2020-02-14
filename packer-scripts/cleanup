@@ -4,6 +4,9 @@ set -o errexit
 set -o xtrace
 shopt -s nullglob
 
+# clear the APT cache and delete everything from /var/cache/apt/archives/
+apt clean
+
 rm -rf \
   /etc/apparmor* \
   /etc/profile.d/jdk.csh \
@@ -20,10 +23,6 @@ rm -rf \
   /var/tmp/* \
   VBoxGuestAdditions_*.iso \
   VBoxGuestAdditions_*.iso.?
-
-if ! [[ "$(lsb_release -sc)" =~ xenial ]]; then
-  rm -rf /etc/systemd
-fi
 
 if [[ $CLEANUP_APT_LISTS ]]; then
   rm -rf /var/lib/apt/lists/* || echo "Suppressing exit $?"

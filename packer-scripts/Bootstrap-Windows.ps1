@@ -3,14 +3,18 @@ Set-StrictMode -Version 1.0
 function Main {
   Install-Chocolatey
   Install-Packages
-  Create-TravisUser
+  Install-Bundler
+  Clean-Up
+  #Create-TravisUser
   Create-StubFiles
 }
 
 function Install-Chocolatey {
   $webClient = New-Object System.Net.WebClient
   $installScript = $webClient.DownloadString('https://chocolatey.org/install.ps1')
-  iex "$installScript"
+  
+  invoke-expression "$installScript"
+  
   choco feature enable -n allowGlobalConfirmation
 }
 
@@ -19,9 +23,20 @@ function Install-Packages {
            | Select-String -NotMatch "^(#.*|)$") {
     $package = $package.Line.Trim()
     if ($package -ne "") {
-      choco install $package
+      invoke-expression "choco install $package"
     }
   }
+}
+
+function Install-Bundler {
+    $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+    gem install bundler
+}
+
+function Clean-Up {
+  choco install choco-cleaner
+  & C:\ProgramData\chocolatey\bin\choco-cleaner.ps1
+  choco uninstall choco-cleaner
 }
 
 function Create-TravisUser {
