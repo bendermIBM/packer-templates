@@ -7,7 +7,7 @@ source /tmp/__common-lib.sh
 main() {
 
   export DEBIAN_FRONTEND='noninteractive'
-  call_build_function func_name="__install_packages"
+  call_build_function func_name="__install_packages_xenial_s390x"
   call_build_function func_name="__setup_pgsql"
   __clear_cfg_files
   __link_ramfs
@@ -30,6 +30,16 @@ __install_packages_bionic() {
 }
 
 __install_packages_xenial_ppc64le(){
+  echo "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+  wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+  apt-get update -yqq
+    apt-get install -yqq \
+    --no-install-suggests \
+    --no-install-recommends \
+    postgresql-9.6 postgresql-contrib-9.6 postgresql-9.6-postgis-2.5 postgresql-9.6-postgis-2.5-scripts postgresql-client-9.6  libpq-dev libgeos++-dev;
+}
+
+__install_packages_xenial_s390x(){
   echo "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" > /etc/apt/sources.list.d/pgdg.list
   wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
   apt-get update -yqq

@@ -134,21 +134,21 @@ provisioners:
    - chmod 644 /etc/docker/daemon.json
 
   # Creare image metadata tarball
-- type: shell
-  scripts:
-  - scripts/create-job-board-data-lxd.sh
-  - scripts/create-image-metadata-tarball-lxd.sh
-  environment_vars:
-  - IMAGE_METADATA_TARBALL=/tmp/image-metadata-{{ user `image_name` }}.tar.bz2
-  - JOB_BOARD_REGISTER_FILE=/tmp/.job_board_register.yml
-  - JOB_BOARD_IMAGE_DIST={{ user `dist_name` }}
-  - IMAGE_NAME={{ user `image_name` }}
-  - LANGUAGES={{ user `languages` }}
-  execute_command: "{{ .Vars }} exec sudo -E -S bash '{{ .Path }}'"
-- type: file
-  source: /tmp/image-metadata-{{ user `image_name` }}.tar.bz2
-  destination: tmp/image-metadata-{{ user `image_name` }}.tar.bz2
-  direction: download
+# - type: shell
+#   scripts:
+#   - scripts/create-job-board-data-lxd.sh
+#   - scripts/create-image-metadata-tarball-lxd.sh
+#   environment_vars:
+#   - IMAGE_METADATA_TARBALL=/tmp/image-metadata-{{ user `image_name` }}.tar.bz2
+#   - JOB_BOARD_REGISTER_FILE=/tmp/.job_board_register.yml
+#   - JOB_BOARD_IMAGE_DIST={{ user `dist_name` }}
+#   - IMAGE_NAME={{ user `image_name` }}
+#   - LANGUAGES={{ user `languages` }}
+#   execute_command: "{{ .Vars }} exec sudo -E -S bash '{{ .Path }}'"
+# - type: file
+#   source: /tmp/image-metadata-{{ user `image_name` }}.tar.bz2
+#   destination: tmp/image-metadata-{{ user `image_name` }}.tar.bz2
+#   direction: download
 
 # cleanup
 - type: shell
