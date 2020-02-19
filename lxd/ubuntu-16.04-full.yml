@@ -24,6 +24,11 @@ provisioners:
   source: files/sources.list
   destination: /etc/apt/sources.list
 
+  # Use static DNS servers
+- type: shell
+  scripts:
+  - scripts/resolv-conf.sh
+
 - type: shell
   scripts:
   - scripts/base.sh
@@ -91,10 +96,7 @@ provisioners:
   - scripts/install-docker-compose.sh
   execute_command: "exec su - travis '{{ .Path }}'"
 
-  # Use static DNS servers
-- type: shell
-  scripts:
-  - scripts/resolv-conf.sh
+
 
   # Cleanup systemd units
 - type: shell
@@ -164,9 +166,9 @@ post-processors:
   - type: shell-local
     scripts:
     - scripts/lxc-export.sh
-    - scripts/lxc-aws-s3-upload.sh
-    - scripts/lxc-push.sh # push and init images in lxc hosts with salt (only for staging)
-    - scripts/job-board-register.rb # register lxc image in job board staging
+    # - scripts/lxc-aws-s3-upload.sh
+    # - scripts/lxc-push.sh # push and init images in lxc hosts with salt (only for staging)
+    # - scripts/job-board-register.rb # register lxc image in job board staging
     environment_vars:
     - IMAGE_METADATA_FILE=image-metadata-{{ user `image_name` }}.tar.bz2
     - IMAGE_NAME={{ user `image_name` }}
