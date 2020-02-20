@@ -28,6 +28,7 @@ nameserver 9.20.136.25
 nameserver 9.0.130.50
 nameserver 9.0.128.50
 nameserver 9.12.16.2
+nameserver 8.8.8.8
 "
 }
 
@@ -39,6 +40,7 @@ nameserver 9.20.136.25
 nameserver 9.0.130.50
 nameserver 9.0.128.50
 nameserver 9.12.16.2
+nameserver 8.8.8.8
 "
 }
 
