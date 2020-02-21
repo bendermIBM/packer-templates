@@ -1,10 +1,10 @@
-deb http://ubuntu.hursley.ibm.com/ubuntu-ports bionic main restricted
-deb http://ubuntu.hursley.ibm.com/ubuntu-ports bionic-updates main restricted
-deb http://ubuntu.hursley.ibm.com/ubuntu-ports bionic universe
-deb http://ubuntu.hursley.ibm.com/ubuntu-ports bionic-updates universe
-deb http://ubuntu.hursley.ibm.com/ubuntu-ports bionic multiverse
-deb http://ubuntu.hursley.ibm.com/ubuntu-ports bionic-updates multiverse
-deb http://ubuntu.hursley.ibm.com/ubuntu-ports bionic-backports main restricted universe multiverse
-deb http://ubuntu.hursley.ibm.com/ubuntu-ports bionic-security main restricted
-deb http://ubuntu.hursley.ibm.com/ubuntu-ports bionic-security universe
-deb http://ubuntu.hursley.ibm.com/ubuntu-ports bionic-security multiverse
+deb http://ubuntu.hursley.ibm.com/ubuntu-ports DISTRIB_CODENAME main restricted
+deb http://ubuntu.hursley.ibm.com/ubuntu-ports DISTRIB_CODENAME-updates main restricted
+deb http://ubuntu.hursley.ibm.com/ubuntu-ports DISTRIB_CODENAME universe
+deb http://ubuntu.hursley.ibm.com/ubuntu-ports DISTRIB_CODENAME-updates universe
+deb http://ubuntu.hursley.ibm.com/ubuntu-ports DISTRIB_CODENAME multiverse
+deb http://ubuntu.hursley.ibm.com/ubuntu-ports DISTRIB_CODENAME-updates multiverse
+deb http://ubuntu.hursley.ibm.com/ubuntu-ports DISTRIB_CODENAME-backports main restricted universe multiverse
+deb http://ubuntu.hursley.ibm.com/ubuntu-ports DISTRIB_CODENAME-security main restricted
+deb http://ubuntu.hursley.ibm.com/ubuntu-ports DISTRIB_CODENAME-security universe
+deb http://ubuntu.hursley.ibm.com/ubuntu-ports DISTRIB_CODENAME-security multiverse
