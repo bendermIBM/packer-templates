@@ -68,7 +68,7 @@ provisioners:
 - type: shell
   scripts:
   - scripts/databases.sh
-  - scripts/database-postgresql.sh
+  # - scripts/database-postgresql.sh
   environment_vars:
   - PGSQL_VERSION="10"
 
